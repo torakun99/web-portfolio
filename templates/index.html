@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+
+    <div class="input-form">
+        <h2>新しいアイテムを追加:</h2>
+        <form method="POST" action="{{ url_for('index') }}" novalidate>
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.name.label(class="visually-hidden") }} {# ラベルはCSSで非表示にする場合 #}
+                {{ form.name(placeholder="新しいアイテム名を入力") }}
+                {% if form.name.errors %}
+                    <ul class="errors">
+                    {% for error in form.name.errors %}<li>{{ error }}</li>{% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            {{ form.submit() }}
+        </form>
+    </div>
+
+    <div class="item-list">
+        <h2>現在のアイテム一覧:</h2>
+        {% if items %}
+        <ul>
+            {% for item in items %}
+                <li class="{% if item.complete %}completed{% endif %}">
+                    <span>{{ item.name }}</span>
+                    <div class="actions">
+                        <a href="{{ url_for('update_item', item_id=item.id) }}"><button>完了/未完了</button></a>
+                        <a href="{{ url_for('delete_item', item_id=item.id) }}"><button>削除</button></a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>まだアイテムがありません。</p>
+        {% endif %}
+    </div>
+{% endblock %}
