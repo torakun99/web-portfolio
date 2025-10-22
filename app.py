@@ -96,12 +96,12 @@ with app.app_context():
     pass # db.create_all() # 新しい complete カラムを持つテーブルが作成される
     # db.create_all() をコメントアウトしないこと
 
-@app.route('/init_db')
-def init_db():
-    with app.app_context():
-        db.create_all()
-    return "Database tables created!"
-# --- ここまで代替コードを追加 ---
+# @app.route('/init_db')
+# def init_db():
+#     with app.app_context():
+#         db.create_all()
+#     return "Database tables created!"
+# # --- ここまで代替コードを追加 ---
 
 # --- ルーティングを修正 ---
 # GET（表示）とPOST（追加処理）を一つのルーティングにまとめる
